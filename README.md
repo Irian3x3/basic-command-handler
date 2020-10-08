@@ -18,4 +18,8 @@ module.exports = {
   }
 }
 ```
-## If you find an issue in the code, [create an issue](../../issues/new) and I'll try to get back to you
+Also, make sure you have the `commands` folder and a category folder inside, like so:
+```
+commands/category/name.js
+```
+## If you find an issue in the code, [create an issue](../../issues/new) or message me on discord (`Irian3x3#0001`) and I'll try to get back to you
