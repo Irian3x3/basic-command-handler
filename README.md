@@ -18,7 +18,7 @@ module.exports = {
   }
 }
 ```
-Also, make sure you have the `commands` folder and a category folder inside, like so:
+Also, make sure you have the `commands` folder and a category folder inside, and your folder path should look like this:
 ```
 commands/category/name.js
 ```
