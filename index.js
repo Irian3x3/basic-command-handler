@@ -3,9 +3,9 @@ const Discord = require('discord.js');
 
 let prefix = "!"; // Not required.
 
-const client = new Discord.Client();
+const bot = new Discord.Client();
 
-client.commands = new Discord.Collection();
+bot.commands = new Discord.Collection();
 
 const folders = fs.readdirSync('./commands');
 
@@ -13,30 +13,31 @@ const folders = fs.readdirSync('./commands');
         const folder = fs.readdirSync(`./commands/${category}/`).filter(file => file.endsWith(".js"));
         for(const cmdFile of folder) {
             const command = require(`./commands/${category}/${cmdFile}`)
-            client.commands.set(command.name, command);
+            bot.commands.set(command.name, command);
         }
     }
 
-client.once("ready", () => {
+bot.once("ready", () => {
     console.log("Ready")
 })
 
-client.on('message', message => {
-    if(!message.content.startsWith(prefix)) return;
-    const args = message.content.slice(prefix.length).trim().split(/ +/);
+bot.on('message', m => {
+    if(!m.content.startsWith(prefix)) return;
+    const args = m.content.slice(prefix.length).trim().split(/ +/);
     const commandName = args.shift().toLowerCase();
+    const message = m;
 
-    const command = client.commands.get(commandName)
-        || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+    const command = bot.commands.get(commandName)
+        || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
         
         if(!command) return;
         
-        try{
-            command.execute(message, args, client)
+        try {
+            command.run(message, args, client)
         } catch (error) {
             console.error(error)
-            message.channel.send(`There was an error executing that command: \`\`\`${error}\`\`\``)
+            m.channel.send(`There was an error executing \`${command.name}\`.`)
         }
 })
 
-client.login('TOKEN') // We login into the bot, replace TOKEN to your bot's token.
+bot.login('TOKEN'); // We login into the bot, replace TOKEN to your bot's token.
