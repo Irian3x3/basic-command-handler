@@ -13,7 +13,7 @@ Your basic command should look like
 module.exports = {
   name: "someName",
   description: "Some command description",
-  execute(message, args, client) {
+  async run(message, args, bot) {
   // Some code here...
   }
 }
