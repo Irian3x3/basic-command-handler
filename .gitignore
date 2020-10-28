@@ -1,0 +1,8 @@
+# Markdown files
+*.md
+
+# Github Folder
+/.github
+
+# This file!
+.gitignore
