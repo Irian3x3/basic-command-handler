@@ -3,7 +3,9 @@ const Discord = require('discord.js');
 
 let prefix = "!"; // Not required.
 
-const bot = new Discord.Client();
+const bot = new Discord.Client({
+    disableMentions: 'everyone' // This is fully optional but it's preferred to disable @everyone and @here mentions.
+});
 
 bot.commands = new Discord.Collection();
 
@@ -18,19 +20,20 @@ const folders = fs.readdirSync('./commands');
     }
 
 bot.once("ready", () => {
-    console.log("Ready")
+    console.log(`I'm online! Login ${bot.user.tag}!`)
 })
 
 bot.on('message', m => {
-    if(!m.content.startsWith(prefix)) return;
+    if (!m.content.startsWith(prefix)) return;
+    
     const args = m.content.slice(prefix.length).trim().split(/ +/);
-    const commandName = args.shift().toLowerCase();
+    const cmd = args.shift().toLowerCase();
     const message = m;
 
-    const command = bot.commands.get(commandName)
-        || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+    const command = bot.commands.get(cmd)
+        || bot.commands.find(c => c.aliases && c.aliases.includes(cmd));
         
-        if(!command) return;
+        if (!command) return;
         
         try {
             command.run(message, args, client)
