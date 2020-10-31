@@ -31,12 +31,6 @@ module.exports = {
   }
 }
 ```
-Also, make sure you have the `commands` folder and a category folder inside, and your folder path should look like this:
-```ps                
-                          commandFile.js
-          categoryFolder1/
-commands/
-         
-```
+Also, make sure you have the `commands` folder and a category folder inside.
 ## If you find an issue in the code, [create an issue](../../issues/new) or message me on discord (`Irian3x3#0001`) and I'll try to get back to you
 ## [Get help here](https://invite.gg/iriandev)
